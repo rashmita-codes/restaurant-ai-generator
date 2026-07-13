@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RestaurantForm from "./components/RestaurantForm";
 import RestaurantPreview from "./components/RestaurantPreview";
+import Navbar from "./components/Navbar";
 import "./App.css";
 
 
