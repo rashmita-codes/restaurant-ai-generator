@@ -2,26 +2,72 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import generateRoute from "./routes/generate.js";
-
 dotenv.config();
-
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message: "Restaurant AI Generator Backend Running 🚀",
-  });
+
+
+app.get("/",(req,res)=>{
+
+res.send("Backend is running");
+
 });
 
-app.use("/generate", generateRoute);
 
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.post("/generate",(req,res)=>{
+
+
+console.log("Received Data:");
+
+console.log(req.body);
+
+
+
+const {
+
+restaurantName,
+cuisine,
+address,
+phone,
+hours,
+menu
+
+}=req.body;
+
+
+
+const website={
+
+title:restaurantName,
+
+description:
+`Welcome to ${restaurantName}. 
+Enjoy authentic ${cuisine} cuisine with fresh ingredients and amazing taste.`,
+
+address,
+phone,
+hours,
+menu
+
+};
+
+
+
+res.json(website);
+
+
+
+});
+
+
+
+app.listen(5000,()=>{
+
+console.log("Server running on port 5000");
+
 });

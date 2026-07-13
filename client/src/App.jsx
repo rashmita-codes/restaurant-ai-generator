@@ -1,38 +1,107 @@
 import { useState } from "react";
+import RestaurantForm from "./components/RestaurantForm";
+import RestaurantPreview from "./components/RestaurantPreview";
 import "./App.css";
 
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import PromptForm from "./components/PromptForm";
-import RestaurantPreview from "./components/RestaurantPreview";
-import { generateRestaurant } from "./services/api";
 
 function App() {
-  const [restaurantData, setRestaurantData] = useState(null);
 
-  const handleGenerate = async (formData) => {
+  const [websiteData, setWebsiteData] = useState(null);
+
+
+  const generateWebsite = async (formData) => {
+
+    console.log("Generate button clicked");
+
+
     try {
-      const response = await generateRestaurant(formData);
 
-      console.log("API Response:", response);
+      const response = await fetch(
+        "http://localhost:5000/generate",
+        {
+          method: "POST",
 
-      setRestaurantData(response.data);
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(formData),
+
+        }
+      );
+
+
+      const data = await response.json();
+
+
+      console.log("AI Response:", data);
+
+
+      setWebsiteData(data);
+
+
     } catch (error) {
-      console.error(error);
-      alert("Unable to generate website.");
+
+      console.log("Error:", error);
+
+      alert("Cannot connect to server");
+
     }
+
   };
 
+
+
   return (
-    <>
-      <Navbar />
-      <Hero />
 
-      <PromptForm onGenerate={handleGenerate} />
+    <div className="app">
 
-      <RestaurantPreview data={restaurantData} />
-    </>
+
+      <nav className="navbar">
+
+        <h2>🍽️ Restaurant AI Builder</h2>
+
+      </nav>
+
+
+
+      <section className="hero">
+
+        <h1>
+          Create Your Restaurant Website Using AI
+        </h1>
+
+        <p>
+          Generate a professional restaurant website instantly.
+        </p>
+
+      </section>
+
+
+
+      <RestaurantForm
+        generateWebsite={generateWebsite}
+      />
+
+
+
+      {
+        websiteData && (
+
+          <RestaurantPreview
+            data={websiteData}
+          />
+
+        )
+      }
+
+
+
+    </div>
+
   );
+
 }
+
 
 export default App;
