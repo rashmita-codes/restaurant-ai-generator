@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function PromptForm({ onGenerate }) {
+function RestaurantForm({ generateWebsite }) {
   const [formData, setFormData] = useState({
     restaurantName: "",
     cuisine: "",
@@ -19,7 +19,7 @@ function PromptForm({ onGenerate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGenerate(formData);
+    generateWebsite(formData);
   };
 
   return (
@@ -27,11 +27,11 @@ function PromptForm({ onGenerate }) {
       <h2>Create Your Restaurant Website</h2>
 
       <form onSubmit={handleSubmit} className="prompt-form">
-
         <input
           type="text"
           name="restaurantName"
           placeholder="Restaurant Name"
+          value={formData.restaurantName}
           onChange={handleChange}
         />
 
@@ -39,6 +39,7 @@ function PromptForm({ onGenerate }) {
           type="text"
           name="cuisine"
           placeholder="Cuisine"
+          value={formData.cuisine}
           onChange={handleChange}
         />
 
@@ -46,6 +47,7 @@ function PromptForm({ onGenerate }) {
           type="text"
           name="address"
           placeholder="Address"
+          value={formData.address}
           onChange={handleChange}
         />
 
@@ -53,6 +55,7 @@ function PromptForm({ onGenerate }) {
           type="text"
           name="phone"
           placeholder="Phone Number"
+          value={formData.phone}
           onChange={handleChange}
         />
 
@@ -60,6 +63,7 @@ function PromptForm({ onGenerate }) {
           type="text"
           name="hours"
           placeholder="Opening Hours"
+          value={formData.hours}
           onChange={handleChange}
         />
 
@@ -67,16 +71,16 @@ function PromptForm({ onGenerate }) {
           rows="6"
           name="menu"
           placeholder="Menu Items"
+          value={formData.menu}
           onChange={handleChange}
         />
 
         <button type="submit">
           Generate Website
         </button>
-
       </form>
     </section>
   );
 }
 
-export default PromptForm;
+export default RestaurantForm;
