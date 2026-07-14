@@ -241,3 +241,60 @@
     grid-template-columns: 1fr;
   }
 }
+.download-buttons {
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:20px;
+
+  margin-top:40px;
+
+  flex-wrap:wrap;
+
+}
+
+.download-btn{
+
+  padding:15px 28px;
+
+  border:none;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  font-size:17px;
+
+  font-weight:600;
+
+  color:white;
+
+  background:linear-gradient(
+      90deg,
+      var(--primary-color),
+      var(--secondary-color)
+  );
+
+  transition:.3s;
+
+}
+
+.download-btn:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:0 15px 35px rgba(0,0,0,.3);
+
+}
+
+.html-btn{
+
+  background:linear-gradient(
+      90deg,
+      #2563eb,
+      #06b6d4
+  );
+
+}

@@ -1,11 +1,35 @@
 import "./RestaurantPreview.css";
 import cuisineThemes from "../utils/cuisineThemes";
+import { toPng } from "html-to-image";
+import { downloadWebsite } from "../utils/downloadWebsite.js";
 
 function RestaurantPreview({ data }) {
   if (!data) return null;
   const theme =
   cuisineThemes[data.cuisine] ||
   cuisineThemes.Default;
+  const downloadPNG = async () => {
+  const element = document.getElementById("preview");
+
+  if (!element) return;
+
+  try {
+    const dataUrl = await toPng(element, {
+      cacheBust: true,
+      pixelRatio: 2,
+    });
+
+    const link = document.createElement("a");
+
+    link.download = `${data.restaurantName}-preview.png`;
+
+    link.href = dataUrl;
+
+    link.click();
+  } catch (error) {
+    console.error("PNG Download Failed", error);
+  }
+};
 
   return (
    <section
@@ -151,10 +175,27 @@ function RestaurantPreview({ data }) {
           </div>
 
         </div>
+<div className="download-buttons">
 
+  <button
+    className="download-btn"
+    onClick={downloadPNG}
+  >
+    📸 Download PNG
+  </button>
+
+  <button
+    className="download-btn html-btn"
+    onClick={() => downloadWebsite(data)}
+  >
+    🌐 Download HTML
+  </button>
+
+</div>
       </div>
 
     </section>
+    
   );
 }
 
