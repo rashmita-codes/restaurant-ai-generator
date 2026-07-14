@@ -1,73 +1,79 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
+import OpenAI from "openai";
+import { createRestaurantPrompt } from "./prompt.js";
 dotenv.config();
-const app = express();
 
+const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+const client = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+});
+function extractJSON(text) {
 
+  const cleaned = text
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
 
-app.get("/",(req,res)=>{
+  const first = cleaned.indexOf("{");
 
-res.send("Backend is running");
+  const last = cleaned.lastIndexOf("}");
 
+  if (first === -1 || last === -1) {
+    throw new Error("No JSON found.");
+  }
+
+  return cleaned.slice(first, last + 1);
+}
+app.post("/generate", async (req, res) => {
+  try {
+    const {
+      restaurantName,
+      cuisine,
+      address,
+      phone,
+      hours,
+      menu,
+    } = req.body;
+
+   const prompt = createRestaurantPrompt(req.body);
+    const completion = await client.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+
+      temperature: 0.8,
+
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+    });
+
+   const text = completion.choices[0].message.content;
+
+const jsonString = extractJSON(text);
+
+const json = JSON.parse(jsonString);
+
+    res.json(json);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Failed to generate website",
+    });
+  }
 });
 
+const PORT = process.env.PORT || 5000;
 
-
-app.post("/generate",(req,res)=>{
-
-
-console.log("Received Data:");
-
-console.log(req.body);
-
-
-
-const {
-
-restaurantName,
-cuisine,
-address,
-phone,
-hours,
-menu
-
-}=req.body;
-
-
-
-const website={
-
-title:restaurantName,
-
-description:
-`Welcome to ${restaurantName}. 
-Enjoy authentic ${cuisine} cuisine with fresh ingredients and amazing taste.`,
-
-address,
-phone,
-hours,
-menu
-
-};
-
-
-
-res.json(website);
-
-
-
-});
-
-
-
-app.listen(5000,()=>{
-
-console.log("Server running on port 5000");
-
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
