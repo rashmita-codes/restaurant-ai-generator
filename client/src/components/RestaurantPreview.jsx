@@ -1,7 +1,11 @@
 import "./RestaurantPreview.css";
+import cuisineThemes from "../utils/cuisineThemes";
 
 function RestaurantPreview({ data }) {
   if (!data) return null;
+  const theme =
+  cuisineThemes[data.cuisine] ||
+  cuisineThemes.Default;
 
   return (
     <section className="preview-section" id="preview">
@@ -31,14 +35,11 @@ function RestaurantPreview({ data }) {
 
         <div className="preview-image">
 
-          <img
-            src={
-              data.image ||
-              "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
-            }
-            alt="Restaurant"
-          />
-
+          
+           <img
+  src={data.image || theme.image}
+  alt={data.restaurantName}
+/>
         </div>
 
         {/* About */}

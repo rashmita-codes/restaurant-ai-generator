@@ -15,7 +15,8 @@ Return ONLY a JSON object.
 JSON format:
 
 {
-  "restaurantName":"",
+  "restaurantName": "",
+  "cuisine": "",
   "heroTitle":"",
   "heroDescription":"",
   "about":"",
@@ -74,6 +75,16 @@ Menu must be an array.
 
 Generate exactly 3 customer reviews.
 
-Return ONLY JSON.
+The "cuisine" field MUST contain exactly one of these values whenever appropriate:
+
+- Indian
+- Italian
+- Chinese
+- Japanese
+- Mexican
+- Cafe
+- Bakery
+
+Return ONLY valid JSON.
 `;
 }
