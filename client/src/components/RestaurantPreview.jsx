@@ -1,117 +1,153 @@
 import "./RestaurantPreview.css";
 
 function RestaurantPreview({ data }) {
+  if (!data) return null;
 
-    if(!data){
-        return(
-            <div className="placeholder">
-                🚀 Your AI generated restaurant website will appear here.
-            </div>
-        )
-    }
+  return (
+    <section className="preview-section" id="preview">
 
-    const dishes=data.menuDescription
-        ? data.menuDescription.split(",")
-        : ["Chef Special","Signature Dish","Fresh Dessert"];
+      <div className="preview-container">
 
-    return(
+        {/* Heading */}
 
-<div className="preview-container">
+        <div className="preview-header">
 
-<div className="hero-banner">
+          <span className="preview-badge">
+            ✨ AI Generated Website
+          </span>
 
-<h1>{data.heroTitle}</h1>
+          <h2>
+            {data.restaurantName || "Restaurant Name"}
+          </h2>
 
-<p>{data.heroSubtitle}</p>
+          <p>
+            {data.heroTitle ||
+              "Experience amazing food crafted with passion."}
+          </p>
 
-<div className="hero-buttons">
+        </div>
 
-<button className="primary-btn">
-Reserve Table
-</button>
+        {/* Hero Image */}
 
-<button className="secondary-btn">
-View Menu
-</button>
+        <div className="preview-image">
 
-</div>
+          <img
+            src={
+              data.image ||
+              "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+            }
+            alt="Restaurant"
+          />
 
-</div>
+        </div>
 
-<section className="section">
+        {/* About */}
 
-<h2>About Us</h2>
+        <div className="preview-card">
 
-<p>{data.about}</p>
+          <h3>🍽 About Us</h3>
 
-</section>
+          <p>
+            {data.about ||
+              "AI will generate an engaging restaurant description here."}
+          </p>
 
-<section className="section">
+        </div>
 
-<h2>Featured Menu</h2>
+        {/* Featured Menu */}
 
-<div className="menu-grid">
+        <div className="preview-card">
 
-{dishes.map((dish,index)=>(
+          <h3>🍕 Featured Menu</h3>
 
-<div className="menu-card" key={index}>
+          <div className="menu-grid">
 
-<h3>{dish.trim()}</h3>
+            {(Array.isArray(data.menu)
+              ? data.menu
+              : String(data.menu || "")
+                  .split(",")
+                  .map((item) => item.trim())
+                  .filter(Boolean)
+            ).map((item, index) => (
+              <div className="menu-item" key={index}>
+                🍴 {item}
+              </div>
+            ))}
 
-<p>Prepared with premium ingredients and authentic flavours.</p>
+          </div>
 
-</div>
+        </div>
 
-))}
+        {/* Contact */}
 
-</div>
+        <div className="contact-grid">
 
-</section>
+          <div className="contact-card">
+            <h4>📍 Address</h4>
+            <p>{data.address || "Restaurant Address"}</p>
+          </div>
 
-<section className="section">
+          <div className="contact-card">
+            <h4>📞 Phone</h4>
+            <p>{data.phone || "+91 XXXXX XXXXX"}</p>
+          </div>
 
-<h2>Contact</h2>
+          <div className="contact-card">
+            <h4>🕒 Opening Hours</h4>
+            <p>{data.hours || "10 AM - 11 PM"}</p>
+          </div>
 
-<div className="contact-grid">
+        </div>
 
-<div className="contact-card">
+        {/* Reviews */}
 
-<h3>📍 Address</h3>
+        <div className="preview-card">
 
-<p>{data.address}</p>
+          <h3>⭐ Customer Reviews</h3>
 
-</div>
+          <div className="reviews-grid">
 
-<div className="contact-card">
+            {(data.reviews || [
+              {
+                name: "Sophia",
+                rating: "⭐⭐⭐⭐⭐",
+                comment:
+                  "Amazing food and wonderful ambience!"
+              },
+              {
+                name: "Daniel",
+                rating: "⭐⭐⭐⭐⭐",
+                comment:
+                  "Highly recommended. Excellent service."
+              },
+              {
+                name: "Emily",
+                rating: "⭐⭐⭐⭐⭐",
+                comment:
+                  "The AI-generated website looks incredible."
+              }
+            ]).map((review, index) => (
 
-<h3>📞 Phone</h3>
+              <div className="review-card" key={index}>
 
-<p>{data.phone}</p>
+                <h4>{review.name}</h4>
 
-</div>
+                <span>{review.rating}</span>
 
-<div className="contact-card">
+                <p>{review.comment}</p>
 
-<h3>🕒 Opening Hours</h3>
+              </div>
 
-<p>{data.hours}</p>
+            ))}
 
-</div>
+          </div>
 
-</div>
+        </div>
 
-</section>
+      </div>
 
-<div className="footer">
-
-© 2026 {data.seoTitle || "Restaurant"} • Powered by Restaurant AI Generator
-
-</div>
-
-</div>
-
-    )
-
+    </section>
+  );
 }
 
 export default RestaurantPreview;
