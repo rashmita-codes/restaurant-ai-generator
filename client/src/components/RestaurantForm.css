@@ -1,0 +1,212 @@
+/* =========================================
+   GENERATOR SECTION
+========================================= */
+
+.generator-section {
+  padding: 100px 8%;
+}
+
+.generator-container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.generator-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.generator-badge {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 50px;
+
+  background: rgba(255, 123, 0, 0.12);
+  border: 1px solid rgba(255, 123, 0, 0.3);
+
+  color: #ffb347;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  margin-bottom: 18px;
+}
+
+.generator-header h2 {
+  font-size: 2.8rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.generator-header p {
+  color: #cbd5e1;
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.generator-form {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 24px;
+
+  padding: 40px;
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+  width: 100%;
+
+  padding: 15px 18px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: white;
+
+  font-size: 1rem;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Dropdown */
+
+.input-group select {
+  cursor: pointer;
+}
+
+.input-group select option {
+  background: #111827;
+  color: white;
+}
+
+/* Focus */
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  border-color: #ff7b00;
+
+  box-shadow: 0 0 0 4px rgba(255, 123, 0, 0.15);
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.generate-btn {
+  width: 100%;
+
+  margin-top: 30px;
+
+  padding: 16px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #ff7b00,
+    #ff3d81
+  );
+
+  color: white;
+
+  font-size: 1.05rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.generate-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+
+  box-shadow: 0 18px 35px rgba(255, 123, 0, 0.35);
+}
+
+.generate-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .generator-section {
+    padding: 70px 20px;
+  }
+
+  .generator-header h2 {
+    font-size: 2.2rem;
+  }
+
+  .input-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .generator-form {
+    padding: 25px;
+  }
+}
