@@ -1,102 +1,224 @@
 import "./Hero.css";
 
-function Hero() {
+function Hero({ websiteData, theme }) {
+
+  const primaryColor = theme?.primary || "#ff7b00";
+  const secondaryColor = theme?.secondary || "#ff3d81";
+
+
   return (
-    <section className="hero" id="home">
+
+    <section
+      className="hero"
+      id="home"
+      style={{
+        "--primary-color": primaryColor,
+        "--secondary-color": secondaryColor,
+      }}
+    >
 
       <div className="hero-left">
 
-        <div className="hero-badge">
-          🤖 AI Powered Restaurant Website Builder
-        </div>
+
+        <span className="hero-badge">
+          🤖 AI Restaurant Website Builder
+        </span>
+
+
 
         <h1 className="hero-title">
-          Build Stunning
-          <span> Restaurant Websites</span>
+
+          {
+            websiteData
+              ? websiteData.restaurantName
+              : "Build Your Restaurant Website"
+          }
+
+
           <br />
-          In Seconds With AI
+
+
+          <span>
+
+            {
+              websiteData
+                ? websiteData.heroTitle
+                : "With AI in Seconds"
+            }
+
+          </span>
+
+
         </h1>
 
+
+
         <p className="hero-description">
-          Create beautiful restaurant websites instantly using Artificial
-          Intelligence. Generate menus, hero sections, descriptions,
-          themes, colors, and layouts automatically.
+
+          {
+            websiteData
+              ? websiteData.heroDescription
+              :
+              "Create a stunning professional restaurant website automatically using artificial intelligence."
+          }
+
         </p>
+
+
 
         <div className="hero-buttons">
 
-          <a href="#generator" className="primary-btn">
-            🚀 Generate Website
-          </a>
+          <button
+            className="hero-btn"
+          >
+            🚀 Start Building
+          </button>
 
-          <a href="#features" className="secondary-btn">
-            Explore Features
-          </a>
+
+          <button
+            className="secondary-btn"
+          >
+            ✨ AI Generated Preview
+          </button>
+
 
         </div>
+
+
 
         <div className="hero-stats">
 
-          <div className="stat-card">
-            <h2>100+</h2>
-            <p>Website Designs</p>
-          </div>
 
           <div className="stat-card">
-            <h2>20+</h2>
-            <p>Cuisine Themes</p>
+
+            <h2>
+              AI
+            </h2>
+
+            <p>
+              Powered
+            </p>
+
           </div>
 
+
+
           <div className="stat-card">
-            <h2>AI</h2>
-            <p>Powered</p>
+
+            <h2>
+              10s
+            </h2>
+
+            <p>
+              Generation
+            </p>
+
           </div>
+
+
+
+          <div className="stat-card">
+
+            <h2>
+              24/7
+            </h2>
+
+            <p>
+              Available
+            </p>
+
+          </div>
+
 
         </div>
 
+
       </div>
 
-      {/* Right Side */}
+
 
       <div className="hero-right">
 
-        <div className="hero-card glass">
+
+        <div className="hero-card">
+
 
           <div className="card-header">
-            🍽️ AI Restaurant Preview
+
+            🍽️ AI Restaurant Designer
+
           </div>
 
+
+
           <img
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80"
+            src={
+              websiteData?.image ||
+              "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+            }
             alt="Restaurant"
           />
 
+
+
           <div className="card-content">
 
-            <h3>La Bella Italia</h3>
+
+            <h3>
+
+              {
+                websiteData
+                  ? websiteData.cuisine
+                  : "Any Cuisine"
+              }
+
+            </h3>
+
 
             <p>
-              Authentic Italian Cuisine crafted with AI generated branding.
+
+              {
+                websiteData
+                  ?
+                  "Your AI-generated restaurant website is ready."
+                  :
+                  "Generate menus, layouts and beautiful designs using AI."
+              }
+
             </p>
+
 
             <div className="card-tags">
 
-              <span>Italian</span>
+              <span>
+                AI Design
+              </span>
 
-              <span>Luxury</span>
+              <span>
+                Smart Menu
+              </span>
 
-              <span>AI Generated</span>
+              <span>
+                Modern UI
+              </span>
 
             </div>
 
+
           </div>
+
 
         </div>
 
+
       </div>
 
+
     </section>
+
   );
+
 }
+
 
 export default Hero;

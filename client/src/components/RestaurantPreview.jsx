@@ -8,7 +8,14 @@ function RestaurantPreview({ data }) {
   cuisineThemes.Default;
 
   return (
-    <section className="preview-section" id="preview">
+   <section
+  className="preview-section"
+  id="preview"
+  style={{
+    "--primary-color": theme.primary,
+    "--secondary-color": theme.secondary,
+  }}
+>
 
       <div className="preview-container">
 

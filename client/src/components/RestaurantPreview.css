@@ -4,6 +4,12 @@
 
 .preview-section {
   padding: 100px 8%;
+   background:
+  radial-gradient(
+    circle at top left,
+    color-mix(in srgb, var(--primary-color) 25%, transparent),
+    transparent 40%
+  );
 }
 
 .preview-container {
@@ -25,7 +31,7 @@
   padding: 10px 18px;
 
   background: rgba(255, 123, 0, 0.12);
-  color: #ffb347;
+  color: var(--secondary-color);
 
   border: 1px solid rgba(255, 123, 0, 0.35);
 
@@ -127,7 +133,7 @@
 .menu-item:hover {
   transform: translateY(-5px);
 
-  border-color: #ff7b00;
+  border-color: var(--primary-color);
 }
 
 /* ==========================================
@@ -159,7 +165,7 @@
 }
 
 .contact-card h4 {
-  color: #ffb347;
+  color: var(--secondary-color);
   margin-bottom: 10px;
 }
 
@@ -194,7 +200,7 @@
 .review-card:hover {
   transform: translateY(-5px);
 
-  border-color: #ff7b00;
+   border-color: var(--primary-color);
 }
 
 .review-card h4 {
