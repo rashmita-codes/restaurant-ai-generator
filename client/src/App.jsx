@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import RestaurantForm from "./components/RestaurantForm";
 import RestaurantPreview from "./components/RestaurantPreview";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -98,7 +99,7 @@ function App() {
 
         )
       }
-
+<Footer theme={theme} />
 
     </div>
 
