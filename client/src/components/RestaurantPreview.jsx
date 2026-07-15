@@ -1,13 +1,10 @@
 import "./RestaurantPreview.css";
-import cuisineThemes from "../utils/cuisineThemes";
 import { toPng } from "html-to-image";
 import { downloadWebsite } from "../utils/downloadWebsite.js";
 
-function RestaurantPreview({ data }) {
+function RestaurantPreview({ data, theme }) {
   if (!data) return null;
-  const theme =
-  cuisineThemes[data.cuisine] ||
-  cuisineThemes.Default;
+  
   const downloadPNG = async () => {
   const element = document.getElementById("preview");
 
@@ -66,10 +63,10 @@ function RestaurantPreview({ data }) {
 
         <div className="preview-image">
 
-          
-           <img
+         <img
   src={data.image || theme.image}
   alt={data.restaurantName}
+  className="restaurant-image"
 />
         </div>
 
@@ -185,11 +182,11 @@ function RestaurantPreview({ data }) {
   </button>
 
   <button
-    className="download-btn html-btn"
-    onClick={() => downloadWebsite(data)}
-  >
-    🌐 Download HTML
-  </button>
+  className="download-btn html-btn"
+  onClick={() => downloadWebsite(data, theme)}
+>
+  🌐 Download HTML Website
+</button>
 
 </div>
       </div>

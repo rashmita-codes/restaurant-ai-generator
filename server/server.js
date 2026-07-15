@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import OpenAI from "openai";
 import { createRestaurantPrompt } from "./prompt.js";
+import cuisineThemes from "./themes.js";
 dotenv.config();
 
 const app = express();
@@ -62,7 +63,17 @@ const jsonString = extractJSON(text);
 
 const json = JSON.parse(jsonString);
 
-    res.json(json);
+// Get the theme based on cuisine
+const theme =
+  cuisineThemes[json.cuisine] ||
+  cuisineThemes.Default;
+
+// Add image and theme to the response
+json.image = theme.image;
+json.theme = theme;
+
+// Send the updated response
+res.json(json);
   } catch (error) {
     console.error(error);
 

@@ -1,106 +1,33 @@
-export function downloadWebsite(data) {
-  if (!data) return;
+import { getWebsiteTemplate } from "./websiteTemplate";
 
-  const menuItems = (data.menu || [])
-    .map((item) => `<li>${item}</li>`)
-    .join("");
+async function imageToBase64(imageUrl) {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
 
-  const reviews = (data.reviews || [])
-    .map(
-      (review) => `
-      <div class="review">
-        <h4>${review.name}</h4>
-        <p>${review.rating}</p>
-        <p>${review.comment}</p>
-      </div>
-    `
-    )
-    .join("");
+    return await new Promise((resolve) => {
+      const reader = new FileReader();
 
-  const html = `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${data.restaurantName}</title>
+      reader.onloadend = () => resolve(reader.result);
 
-<style>
-body{
-font-family:Arial,sans-serif;
-background:#111827;
-color:white;
-margin:0;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error("Image conversion failed:", error);
+    return imageUrl;
+  }
 }
 
-header{
-background:#ff7b00;
-padding:60px;
-text-align:center;
-}
+export async function downloadWebsite(data, theme) {
+  let image = data.image || theme.image;
 
-section{
-padding:40px;
-max-width:1000px;
-margin:auto;
-}
+  image = await imageToBase64(image);
 
-.review{
-background:#1f2937;
-padding:20px;
-margin:15px 0;
-border-radius:12px;
-}
-
-footer{
-background:#0f172a;
-padding:30px;
-text-align:center;
-}
-</style>
-
-</head>
-
-<body>
-
-<header>
-<h1>${data.restaurantName}</h1>
-<p>${data.heroTitle}</p>
-</header>
-
-<section>
-
-<h2>About</h2>
-
-<p>${data.about}</p>
-
-<h2>Menu</h2>
-
-<ul>
-
-${menuItems}
-
-</ul>
-
-<h2>Reviews</h2>
-
-${reviews}
-
-</section>
-
-<footer>
-
-${data.address}<br>
-
-${data.phone}<br>
-
-${data.hours}
-
-</footer>
-
-</body>
-
-</html>
-`;
+  const html = getWebsiteTemplate({
+    ...data,
+    image,
+    theme,
+  });
 
   const blob = new Blob([html], {
     type: "text/html",
@@ -114,7 +41,11 @@ ${data.hours}
 
   link.download = `${data.restaurantName}.html`;
 
+  document.body.appendChild(link);
+
   link.click();
+
+  document.body.removeChild(link);
 
   URL.revokeObjectURL(url);
 }

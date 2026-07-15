@@ -82,6 +82,9 @@ The "cuisine" field MUST contain exactly one of these values whenever appropriat
 - Chinese
 - Japanese
 - Mexican
+- Thai
+- French
+- American
 - Cafe
 - Bakery
 
